@@ -7,36 +7,25 @@
 #pragma ONCE
 #include <string>
 #include <iostream>
-#include "player.hpp"
 #include "game.hpp"
-#include "card.hpp"
-using namespace ariel;
 using namespace std;
-class Game
+namespace ariel
 {
-private: // Access specifier
-    Player player1;
-    Player player2;
-    string log;
-    string lasturn;
-
-    // The class
-public: // Access specifier
     // Constructor
-    Game(Player p1, Player p2)
+    Game::Game(Player pl1, Player pl2)
     {
         log = "";
         lasturn = "";
-        player1 = p1;
-        player2 = p2;
+        player1 = pl1;
+        player2 = pl2;
         this->player1.addGame();
         this->player2.addGame();
         this->player1.setPlaying();
         this->player2.setPlaying();
         // initialize number of cards taken by each player in unuque game
-        int temp  = this->player1.cardesTaken();
+        int temp = this->player1.cardesTaken();
         this->player1.addCardsTaken(-temp);
-        temp  = this->player2.cardesTaken();
+        temp = this->player2.cardesTaken();
         this->player2.addCardsTaken(-temp);
 
         vector<Card> all;
@@ -63,15 +52,17 @@ public: // Access specifier
             player1.addCard(all[(unsigned int)i]);
             player2.addCard(all[(unsigned int)i + 26]);
         }
+        cout << player1.stacksize() << endl;
+        cout << player2.stacksize() << endl;
     }
     // destructor
-    ~Game()
+    Game::~Game()
     {
         this->player1.setPlaying();
         this->player2.setPlaying();
         cout << "Game is over" << endl;
     }
-    void playTurn()
+    void Game::playTurn()
     {
         int cardscounter = 0; // count the number of cards in the war
         Card v1 = this->player1.removecard();
@@ -139,12 +130,12 @@ public: // Access specifier
         cout << "EndOfTurn" << endl;
     }
     // print last turn
-    void printLastTurn()
+    void Game::printLastTurn()
     {
         cout << this->lasturn << endl;
     }
     // play all turns
-    void playAll()
+    void Game::playAll()
     {
         for (int i = 0; i < 5; i++)
         {
@@ -152,19 +143,19 @@ public: // Access specifier
         }
     }
     // print the winner
-    void printWiner()
+    void Game::printWiner()
     {
         this->player1.addCardsWon(this->player1.cardesTaken());
         this->player2.addCardsWon(this->player2.cardesTaken());
         if (this->player1.cardesTaken() > this->player2.cardesTaken())
         {
             this->player1.addWin();
-            cout << this->player1.getName()<< endl;
+            cout << this->player1.getName() << endl;
         }
         else if (this->player1.cardesTaken() < this->player2.cardesTaken())
         {
             this->player2.addWin();
-            cout << this->player2.getName()<< endl;
+            cout << this->player2.getName() << endl;
         }
         else
         {
@@ -172,13 +163,13 @@ public: // Access specifier
         }
     }
     // print the log
-    void printLog()
+    void Game::printLog()
     {
         cout << this->log << endl;
     }
-    void printStats()
+    void Game::printStats()
     {
         cout << this->player1.getName() << " has " << (this->player1.getNumWin() / this->player1.getNumGames()) << " win rate, " << this->player1.getCardsWon() << " cards won, " << this->player1.getDraw() << " number of draws, " << (this->player1.getDraw() / (26 * this->player1.getNumGames())) << " drew rate" << endl;
         cout << this->player2.getName() << " has " << (this->player2.getNumWin() / this->player2.getNumGames()) << " win rate, " << this->player2.getCardsWon() << " cards won, " << this->player2.getDraw() << " number of draws, " << (this->player2.getDraw() / (26 * this->player2.getNumGames())) << " drew rate" << endl;
     }
-};
+}

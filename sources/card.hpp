@@ -2,6 +2,7 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 #include <string>
+#include <iostream>
 using namespace std;
 namespace ariel
 {
@@ -14,7 +15,9 @@ namespace ariel
 
     public: // Access specifier
         // Constructor
-        Card(int xy, int pl);
+        Card(int newval, int newtype);
+        // copy constructor
+        Card(const Card &other);
         //  destructor
         ~Card();
         // Getters

@@ -1,28 +1,30 @@
 #pragma once
 #include <vector>
-#include "card.hpp"
 #include <string>
+#include "card.hpp"
 using namespace std;
 namespace ariel
 {
   class Player
   {        // The class
   private: // Access specifier
-    std::string name;
+    string name;
     vector<Card> cards;
     int cardes_Taken;
     bool is_playing;
-    int id;
-    int numwingames;
-    int drawrate;
-    int cardsWon;
-    int numgames;
+    int id = 0;
+    int cardsWon = 0;
+    int numwingames = 0;
+    int numdraw = 0;
+    int numgames = 0;
 
   public: // Access specifier
     // Constructor
     Player(std::string p_name);
     // Default Constructor
     Player();
+    // copy constructor
+    Player(const Player &other);
     // destructor
     ~Player();
     // Getters

@@ -1,27 +1,10 @@
-#include "card.hpp"
-#include "player.hpp"
-#include <vector>
-#include <string>
-#include <iostream>
-#include <stdexcept>
-using namespace ariel;
-using namespace std;
-class Player
-{        // The class
-private: // Access specifier
-    string name;
-    vector<Card> cards;
-    int cardes_Taken;
-    bool is_playing;
-    int id = 0;
-    int cardsWon = 0;
-    int numwingames = 0;
-    int numdraw = 0;
-    int numgames = 0;
 
-public: // Access specifier
+#include "player.hpp"
+
+namespace ariel
+{
     // Constructor
-    Player(string p_name)
+    Player::Player(string p_name)
     {
         name = p_name;
         cardes_Taken = 0;
@@ -30,7 +13,7 @@ public: // Access specifier
         vector<Card> cards;
     }
     // Default Constructor
-    Player()
+    Player::Player()
     {
         id++;
         name = "stranger" + to_string(id); // unique name
@@ -38,15 +21,28 @@ public: // Access specifier
         is_playing = false;
         vector<Card> cards;
     }
+    // copy constructor
+    Player::Player(const Player &other)
+    {
+        name = other.name;
+        cards = other.cards;
+        cardes_Taken = other.cardes_Taken;
+        is_playing = other.is_playing;
+        id = other.id;
+        cardsWon = other.cardsWon;
+        numwingames = other.numwingames;
+        numdraw = other.numdraw;
+        numgames = other.numgames;
+    }
     // destructor
-    ~Player()
+    Player::~Player()
     {
         this->cardes_Taken = 0;
         this->cards.clear();
         cout << "Player " << name << " is out of the game" << endl;
     }
     // Getters
-    Card removecard()
+    Card Player::removecard()
     {
         if (cards.size() == 0)
         {
@@ -61,65 +57,65 @@ public: // Access specifier
             return card;
         }
     }
-    int getCardsWon()
+    int Player::getCardsWon()
     {
         return cardsWon;
     }
-    int stacksize()
+    int Player::stacksize()
     {
         return cards.size();
     }
-    int cardesTaken()
+    int Player::cardesTaken()
     {
         return cardes_Taken;
     }
-    int getNumWin()
+    int Player::getNumWin()
     {
         return numwingames;
     }
-    int getDraw()
+    int Player::getDraw()
     {
         return numdraw;
     }
-    int getNumGames()
+    int Player::getNumGames()
     {
         return numgames;
     }
-    string getName()
+    string Player::getName()
     {
         return name;
     }
-    bool isPlaying()
+    bool Player::isPlaying()
     {
         return is_playing;
     }
     // Setters
-    void addCardsWon(int num)
+    void Player::addCardsWon(int num)
     {
         cardsWon += num;
     }
-    void addCardsTaken(int num)
+    void Player::addCardsTaken(int num)
     {
         cardes_Taken += num;
     }
-    void addCard(Card card)
+    void Player::addCard(Card card)
     {
         cards.push_back(card);
     }
-    void setPlaying()
+    void Player::setPlaying()
     {
         is_playing = !is_playing;
     }
-    void addWin()
+    void Player::addWin()
     {
         numwingames++;
     }
-    void addDraw()
+    void Player::addDraw()
     {
         numdraw++;
     }
-    void addGame()
+    void Player::addGame()
     {
         numgames++;
     }
-};
+}

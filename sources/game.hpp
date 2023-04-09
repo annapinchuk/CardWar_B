@@ -6,6 +6,8 @@
 
 #pragma ONCE
 #include <string>
+#include "player.hpp"
+#include "card.hpp"
 using namespace std;
 namespace ariel
 {
@@ -19,7 +21,7 @@ namespace ariel
     // The class
   public: // Access specifier
     // Constructor
-    Game(Player p1, Player p2);
+    Game(Player pl1, Player pl2);
     // destructor
     ~Game();
     void playTurn();
