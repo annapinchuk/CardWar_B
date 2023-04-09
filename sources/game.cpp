@@ -12,12 +12,12 @@ using namespace std;
 namespace ariel
 {
     // Constructor
-    Game::Game(Player pl1, Player pl2)
+    Game::Game(Player &pl1, Player &pl2)
     {
-        log = "";
-        lasturn = "";
-        player1 = pl1;
-        player2 = pl2;
+        this->log = "";
+        this->lasturn = "";
+        this->player1 = pl1;
+        this->player2 = pl2;
         this->player1.addGame();
         this->player2.addGame();
         this->player1.setPlaying();
@@ -54,13 +54,6 @@ namespace ariel
         }
         cout << player1.stacksize() << endl;
         cout << player2.stacksize() << endl;
-    }
-    // destructor
-    Game::~Game()
-    {
-        this->player1.setPlaying();
-        this->player2.setPlaying();
-        cout << "Game is over" << endl;
     }
     void Game::playTurn()
     {
@@ -161,6 +154,8 @@ namespace ariel
         {
             cout << "Tie!" << endl;
         }
+        this->player1.setPlaying();
+        this->player2.setPlaying();
     }
     // print the log
     void Game::printLog()

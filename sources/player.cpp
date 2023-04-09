@@ -34,13 +34,6 @@ namespace ariel
         numdraw = other.numdraw;
         numgames = other.numgames;
     }
-    // destructor
-    Player::~Player()
-    {
-        this->cardes_Taken = 0;
-        this->cards.clear();
-        cout << "Player " << name << " is out of the game" << endl;
-    }
     // Getters
     Card Player::removecard()
     {
@@ -104,6 +97,12 @@ namespace ariel
     }
     void Player::setPlaying()
     {
+        if (is_playing)
+        {
+            this->cardes_Taken = 0;
+            this->cards.clear();
+            cout << "Player " << name << " is out of the game" << endl;
+        }
         is_playing = !is_playing;
     }
     void Player::addWin()

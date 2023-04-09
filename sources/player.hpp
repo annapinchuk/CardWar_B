@@ -25,8 +25,6 @@ namespace ariel
     Player();
     // copy constructor
     Player(const Player &other);
-    // destructor
-    ~Player();
     // Getters
     int stacksize();
     int getNumWin();

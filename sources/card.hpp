@@ -18,8 +18,6 @@ namespace ariel
         Card(int newval, int newtype);
         // copy constructor
         Card(const Card &other);
-        //  destructor
-        ~Card();
         // Getters
         int getValue();
         std::string getValueString();

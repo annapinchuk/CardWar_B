@@ -23,6 +23,7 @@ int main() {
 
    Game game(p1,p2); 
    cout << p1.stacksize() << endl; //prints the amount of cards left. should be 26
+   cout << "=======" << endl;
   //  for (int i=0;i<5;i++) {
   //   game.playTurn();
   //  }

@@ -14,10 +14,6 @@ namespace ariel
         type = other.type;
         is_faceUp = other.is_faceUp;
     }
-    //  destructor
-    Card::~Card()
-    {
-    }
     // Getters
     int Card::getValue()
     {
