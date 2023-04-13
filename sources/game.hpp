@@ -14,8 +14,8 @@ namespace ariel
   class Game
   {
   private: // Access specifier
-    Player player1;
-    Player player2;
+    Player& player1;
+    Player& player2;
     std::string log;
     std::string lasturn;
     // The class

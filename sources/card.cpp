@@ -7,13 +7,6 @@ namespace ariel
         type = newtype;
         is_faceUp = false;
     }
-    // copy constructor
-    Card::Card(const Card &other)
-    {
-        value = other.value;
-        type = other.type;
-        is_faceUp = other.is_faceUp;
-    }
     // Getters
     int Card::getValue()
     {

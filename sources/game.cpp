@@ -12,12 +12,10 @@ using namespace std;
 namespace ariel
 {
     // Constructor
-    Game::Game(Player &pl1, Player &pl2)
+    Game::Game(Player &pl1, Player &pl2) : player1(pl1), player2(pl2)
     {
         this->log = "";
         this->lasturn = "";
-        this->player1 = pl1;
-        this->player2 = pl2;
         this->player1.addGame();
         this->player2.addGame();
         this->player1.setPlaying();
@@ -30,7 +28,7 @@ namespace ariel
 
         vector<Card> all;
         // create cards
-        for (int i = 0; i < 14; i++)
+        for (int i = 1; i < 14; i++)
         {
             all.push_back(Card(i, 1));
             all.push_back(Card(i, 2));
@@ -52,21 +50,25 @@ namespace ariel
             player1.addCard(all[(unsigned int)i]);
             player2.addCard(all[(unsigned int)i + 26]);
         }
-        cout << player1.stacksize() << endl;
-        cout << player2.stacksize() << endl;
     }
+
     void Game::playTurn()
     {
+        if (!this->player1.isPlaying() || !this->player2.isPlaying())
+        {
+            throw std::invalid_argument("One of the players is out of the game");
+        }
         int cardscounter = 0; // count the number of cards in the war
         Card v1 = this->player1.removecard();
         Card v2 = this->player2.removecard();
         cardscounter++;
         // template: Alice played Queen of Hearts Bob played 5 of Spades. Alice wins.
-        this->lasturn = this->player1.getName() + " played " + v1.getValueString() + " of " + v1.getType() + " " + this->player1.getName() + " played " + v2.getValueString() + " of " + v2.getType() + ". ";
+        this->lasturn = this->player1.getName() + " played " + v1.getValueString() + " of " + v1.getType() + " " + this->player2.getName() + " played " + v2.getValueString() + " of " + v2.getType() + ". ";
         // check if one of the players has no cards
         if (v1.getValue() == 0 || v2.getValue() == 0)
         {
-            return this->printWiner();
+            this->printWiner();
+            return;
         }
         else
         {
@@ -79,20 +81,23 @@ namespace ariel
                 this->player2.addDraw();
                 // war
                 // one card is faced down
-                Card v1 = this->player1.removecard();
-                Card v2 = this->player2.removecard();
+                v1 = this->player1.removecard();
+                v2 = this->player2.removecard();
                 cardscounter++;
                 // check if one of the players has no cards
                 if (v1.getValue() == 0 || v2.getValue() == 0)
                 {
                     this->player1.addCardsTaken(cardscounter);
                     this->player2.addCardsTaken(cardscounter);
-                    return this->printWiner();
+                    this->printWiner();
+                    break;
                 }
                 else
                 {
-                    Card v1 = this->player1.removecard();
-                    Card v2 = this->player2.removecard();
+                    v1 = this->player1.removecard();
+                    v2 = this->player2.removecard();
+                    cardscounter++;
+                    this->lasturn += this->player1.getName() + " played " + v1.getValueString() + " of " + v1.getType() + " " + this->player2.getName() + " played " + v2.getValueString() + " of " + v2.getType() + ". ";
                 }
             }
             // check if the card is ace
@@ -120,7 +125,6 @@ namespace ariel
             }
         }
         this->log += this->lasturn + '\n';
-        cout << "EndOfTurn" << endl;
     }
     // print last turn
     void Game::printLastTurn()
@@ -130,7 +134,7 @@ namespace ariel
     // play all turns
     void Game::playAll()
     {
-        for (int i = 0; i < 5; i++)
+        while (this->player1.isPlaying() || this->player2.isPlaying())
         {
             this->playTurn();
         }

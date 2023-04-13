@@ -23,8 +23,6 @@ namespace ariel
     Player(std::string p_name);
     // Default Constructor
     Player();
-    // copy constructor
-    Player(const Player &other);
     // Getters
     int stacksize();
     int getNumWin();

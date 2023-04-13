@@ -21,26 +21,12 @@ namespace ariel
         is_playing = false;
         vector<Card> cards;
     }
-    // copy constructor
-    Player::Player(const Player &other)
-    {
-        name = other.name;
-        cards = other.cards;
-        cardes_Taken = other.cardes_Taken;
-        is_playing = other.is_playing;
-        id = other.id;
-        cardsWon = other.cardsWon;
-        numwingames = other.numwingames;
-        numdraw = other.numdraw;
-        numgames = other.numgames;
-    }
     // Getters
     Card Player::removecard()
     {
         if (cards.size() == 0)
         {
             Card cardnull = Card(0, 0);
-
             return cardnull;
         }
         else
@@ -97,7 +83,7 @@ namespace ariel
     }
     void Player::setPlaying()
     {
-        if (is_playing)
+        if (!is_playing)
         {
             this->cardes_Taken = 0;
             this->cards.clear();

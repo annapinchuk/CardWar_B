@@ -16,8 +16,6 @@ namespace ariel
     public: // Access specifier
         // Constructor
         Card(int newval, int newtype);
-        // copy constructor
-        Card(const Card &other);
         // Getters
         int getValue();
         std::string getValueString();
